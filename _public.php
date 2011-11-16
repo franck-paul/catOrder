@@ -11,20 +11,20 @@
 # -- END LICENSE BLOCK -----------------------------------------
 if (!defined('DC_RC_PATH')) { return; }
 
-$core->addBehavior('templateBeforeBlock',array('behaviorCatOrder','templateBeforeBlock'));
+$core->addBehavior('coreBlogBeforeGetPosts',array('behaviorCatOrder','coreBlogBeforeGetPosts'));
 
 class behaviorCatOrder
 {
-	public static function templateBeforeBlock($core,$b,$attr)
+	public static function coreBlogBeforeGetPosts($core,$b,$attr)
 	{
 		if ($core->url->type == 'category') {
 			if ($b == 'Entries' && !isset($attr['no_context'])) {
-				return '<?php echo behaviorCatOrder::catOrderHelp(@$params); ?>';
+				return '<?php echo behaviorCatOrder::catOrderHelper(@$params); ?>';
 			}
 		}
 	}
 
-	public static function catOrderHelp($params)
+	public static function catOrderHelper($params)
 	{
 		global $core, $_ctx;
 		
