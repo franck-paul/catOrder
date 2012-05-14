@@ -12,3 +12,12 @@ msgstr "Ordonnancement des billets des catégories"
 
 msgid "Set category entries order"
 msgstr "Définit l'ordre des billets des catégories"
+
+msgid "Categories orders"
+msgstr "Ordres des catégories"
+
+msgid "Activation"
+msgstr "Activation"
+
+msgid "Orders"
+msgstr "Ordres"
