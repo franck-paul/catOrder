@@ -21,8 +21,8 @@ try
 {
 	$core->blog->settings->addNamespace('catorder');
 
-	$core->blog->settings->discretecat->put('active',false,'boolean','Active',false,true);
-	$core->blog->settings->discretecat->put('orders','','string','Categories order',false,true);
+	$core->blog->settings->catorder->put('active',false,'boolean','Active',false,true);
+	$core->blog->settings->catorder->put('orders','','string','Categories order',false,true);
 
 	$core->setVersion('catOrder',$new_version);
 	

@@ -15,27 +15,21 @@ $core->addBehavior('coreBlogBeforeGetPosts',array('behaviorCatOrder','coreBlogBe
 
 class behaviorCatOrder
 {
-	public static function coreBlogBeforeGetPosts($core,$b,$attr)
-	{
-		if ($core->url->type == 'category') {
-			if ($b == 'Entries' && !isset($attr['no_context'])) {
-				return '<?php echo behaviorCatOrder::catOrderHelper(@$params); ?>';
-			}
-		}
-	}
-
-	public static function catOrderHelper($params)
+	public static function coreBlogBeforeGetPosts($params)
 	{
 		global $core, $_ctx;
 		
-		if ($core->blog->settings->catorder->active && ($core->blog->settings->catorder->orders != '')) {
-			$orders = unserialize($core->blog->settings->catorder->orders);
-			if (is_array($orders)) {
-				$cat_id = $_ctx->categories->cat_id;
-				if (array_key_exists($cat_id,$orders)) {
-					if ($orders[$cat_id] != '') {
-						if (is_array($params))
-							$params['order'] = 'post_dt '.$orders[$cat_id];
+		if ($core->url->type == 'category') {
+			if ($core->blog->settings->catorder->active && ($core->blog->settings->catorder->orders != '')) {
+				$orders = unserialize($core->blog->settings->catorder->orders);
+				if (is_array($orders)) {
+					$cat_id = $_ctx->categories->cat_id;
+					if (array_key_exists($cat_id,$orders)) {
+						if ($orders[$cat_id] != '') {
+							if (is_array($params))
+								$params['order'] = 'post_dt '.$orders[$cat_id];
+//							echo '<p>'.__LINE__.' $params[\'order\'] = '.$params['order'].'</p>';
+						}
 					}
 				}
 			}
