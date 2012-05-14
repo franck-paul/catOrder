@@ -1,0 +1,14 @@
+msgid "By date descending"
+msgstr "Dans l'ordre ante-chronologique"
+
+msgid "By date ascending"
+msgstr "Dans l'ordre chronologique"
+
+msgid "Categories entry orders"
+msgstr "Ordre des billets des catégories"
+
+msgid "Ordering category entries"
+msgstr "Ordonnancement des billets des catégories"
+
+msgid "Set category entries order"
+msgstr "Définit l'ordre des billets des catégories"

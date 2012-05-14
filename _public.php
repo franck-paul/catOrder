@@ -26,9 +26,7 @@ class behaviorCatOrder
 					$cat_id = $_ctx->categories->cat_id;
 					if (array_key_exists($cat_id,$orders)) {
 						if ($orders[$cat_id] != '') {
-							if (is_array($params))
-								$params['order'] = 'post_dt '.$orders[$cat_id];
-//							echo '<p>'.__LINE__.' $params[\'order\'] = '.$params['order'].'</p>';
+							$params['order'] = 'post_dt '.$orders[$cat_id];
 						}
 					}
 				}
