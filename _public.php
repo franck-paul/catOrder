@@ -20,7 +20,10 @@ class behaviorCatOrder
 		global $core, $_ctx;
 		
 		if ($core->url->type == 'category') {
+
+			$core->blog->settings->addNamespace('catorder');
 			if ($core->blog->settings->catorder->active && ($core->blog->settings->catorder->orders != '')) {
+
 				$orders = unserialize($core->blog->settings->catorder->orders);
 				if (is_array($orders)) {
 					$cat_id = $_ctx->categories->cat_id;
@@ -30,6 +33,7 @@ class behaviorCatOrder
 						}
 					}
 				}
+
 			}
 		}
 	}

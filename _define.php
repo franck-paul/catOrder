@@ -15,6 +15,6 @@ $this->registerModule(
 	/* Name */			"Ordering category entries",
 	/* Description*/		"Set category entries order",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.1'
+	/* Version */			'0.1.1'
 );
 ?>
