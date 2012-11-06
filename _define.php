@@ -12,8 +12,8 @@
 if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
-	/* Name */				__("Ordering category entries"),
-	/* Description*/		__("Set category entries order"),
+	/* Name */			"Ordering category entries",
+	/* Description*/		"Set category entries order",
 	/* Author */			"Franck Paul",
 	/* Version */			'0.1'
 );
