@@ -68,8 +68,8 @@ if (!empty($_GET['upd'])) {
 echo
 '<form action="'.$p_url.'" method="post">'.
 '<fieldset><legend>'.__('Activation').'</legend>'.
-'<p class="field"><label for="co_active">'.__('Active:').' '.
-form::checkbox('co_active',1,$co_active).'</label>'.'</p>'.
+'<p class="field"><label for="co_active">'.__('Active:').'</label> '.
+form::checkbox('co_active',1,$co_active).'</p>'.
 '</fieldset>';
 
 echo
@@ -85,9 +85,8 @@ if ($rs->isEmpty()) {
 		echo '<li id="cat-"'.$rs->cat_id.'>'.
 			form::hidden(array('co_catid[]'),$rs->cat_id).
 			'<p class="field">'.
-			'<label>'.html::escapeHTML($rs->cat_title).
+			'<label>'.html::escapeHTML($rs->cat_title).'</label>'.
 			form::combo(array('co_order[]'),$co_combo,$order).
-			'</label>'.
 			'</p>'.
 			'</li>';
 	}
