@@ -10,7 +10,7 @@
 #
 # -- END LICENSE BLOCK ------------------------------------
 
-$core->blog->settings->addNamespace('catOrder');
+$core->blog->settings->addNamespace('catorder');
 $co_active = (boolean) $core->blog->settings->catorder->active;
 $co_orders = @unserialize($core->blog->settings->catorder->orders);
 if (!is_array($co_orders)) {
