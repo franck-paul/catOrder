@@ -59,7 +59,7 @@ $co_combo = array(
 
 <body>
 <?php
-echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('Categories entry orders').'</h2>';
+echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; <span class="page-title">'.__('Categories entry orders').'</span></h2>';
 
 if (!empty($_GET['upd'])) {
 	dcPage::message(__('Settings have been successfully updated.'));
