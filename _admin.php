@@ -12,7 +12,7 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
-$_menu['Plugins']->addItem(__('Categories orders'),'plugin.php?p=catOrder','index.php?pf=catOrder/icon.png',
+$_menu['Blog']->addItem(__('Categories orders'),'plugin.php?p=catOrder','index.php?pf=catOrder/icon.png',
 		preg_match('/plugin.php\?p=catOrder(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
 

@@ -30,15 +30,15 @@ if (!empty($_POST))
 				$co_orders[$_POST['co_catid'][$i]] = $_POST['co_order'][$i];
 			}
 		}
-		
+
 		# Everything's fine, save options
 		$core->blog->settings->addNamespace('catorder');
 		$core->blog->settings->catorder->put('active',$co_active);
 		$core->blog->settings->catorder->put('orders',serialize($co_orders));
-		
+
 		//$core->emptyTemplatesCache();
 		$core->blog->triggerBlog();
-		
+
 		http::redirect($p_url.'&upd=1');
 	}
 	catch (Exception $e)
@@ -61,21 +61,24 @@ $co_combo = array(
 
 <body>
 <?php
-echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; <span class="page-title">'.__('Categories entry orders').'</span></h2>';
+echo dcPage::breadcrumb(
+	array(
+		html::escapeHTML($core->blog->name) => '',
+		'<span class="page-title">'.__('Categories entry orders').'</span>' => ''
+	));
 
 if (!empty($_GET['upd'])) {
-	dcPage::message(__('Settings have been successfully updated.'));
+	dcPage::success(__('Settings have been successfully updated.'));
 }
 
 echo
 '<form action="'.$p_url.'" method="post">'.
-'<fieldset><legend>'.__('Activation').'</legend>'.
-'<p class="field"><label for="co_active">'.__('Active:').'</label> '.
-form::checkbox('co_active',1,$co_active).'</p>'.
-'</fieldset>';
+'<p>'.form::checkbox('co_active',1,$co_active).' '.
+'<label for="co_active" class="classic">'.__('Activate user-defined orders for this blog\'s categories').'</label>'.
+'</p>';
 
 echo
-'<fieldset><legend>'.__('Orders').'</legend>';
+'<h3>'.__('Orders').'</h3>';
 
 $rs = $core->blog->getCategories(array('post_type'=>'post'));
 if ($rs->isEmpty()) {
@@ -95,8 +98,7 @@ if ($rs->isEmpty()) {
 	echo '</ul>';
 }
 
-echo 
-'</fieldset>'.
+echo
 '<p>'.$core->formNonce().'<input type="submit" value="'.__('Save').'" /></p>'.
 '</form>';
 

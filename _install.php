@@ -25,7 +25,7 @@ try
 	$core->blog->settings->catorder->put('orders','','string','Categories order',false,true);
 
 	$core->setVersion('catOrder',$new_version);
-	
+
 	return true;
 }
 catch (Exception $e)
@@ -33,5 +33,4 @@ catch (Exception $e)
 	$core->error->add($e->getMessage());
 }
 return false;
-
 ?>

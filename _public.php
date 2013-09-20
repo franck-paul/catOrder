@@ -19,7 +19,7 @@ class behaviorCatOrder
 	public static function coreBlogBeforeGetPosts($params)
 	{
 		global $core, $_ctx;
-		
+
 		if ($core->url->type == 'category') {
 
 			$core->blog->settings->addNamespace('catorder');
