@@ -27,4 +27,3 @@ function catOrderDashboardFavs($core,$favs)
 		'index.php?pf=catOrder/icon.png','index.php?pf=catOrder/icon-big.png',
 		'admin',null,null));
 }
-?>
