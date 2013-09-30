@@ -64,7 +64,7 @@ $co_combo = array(
 echo dcPage::breadcrumb(
 	array(
 		html::escapeHTML($core->blog->name) => '',
-		'<span class="page-title">'.__('Categories entry orders').'</span>' => ''
+		__('Categories entry orders') => ''
 	));
 
 if (!empty($_GET['upd'])) {
