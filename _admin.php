@@ -19,11 +19,19 @@ $_menu['Blog']->addItem(__('Categories orders'),'plugin.php?p=catOrder','index.p
 		preg_match('/plugin.php\?p=catOrder(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
 
-$core->addBehavior('adminDashboardFavs','catOrderDashboardFavs');
+/* Register favorite */
+$core->addBehavior('adminDashboardFavorites',array('adminCatOrder','adminDashboardFavorites'));
 
-function catOrderDashboardFavs($core,$favs)
+class adminCatOrder
 {
-	$favs['catOrder'] = new ArrayObject(array('catOrder','Categories orders','plugin.php?p=catOrder',
-		'index.php?pf=catOrder/icon.png','index.php?pf=catOrder/icon-big.png',
-		'admin',null,null));
+	public static function adminDashboardFavorites($core,$favs)
+	{
+		$favs->register('catOrder', array(
+			'title' => __('Categories orders'),
+			'url' => 'plugin.php?p=catOrder',
+			'small-icon' => 'index.php?pf=catOrder/icon.png',
+			'large-icon' => 'index.php?pf=catOrder/icon-big.png',
+			'permissions' => 'admin'
+		));
+	}
 }
