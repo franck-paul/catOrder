@@ -85,7 +85,7 @@ if ($rs->isEmpty()) {
 	echo '<ul>';
 	while ($rs->fetch()) {
 		$order = (array_key_exists($rs->cat_id,$co_orders) ? $co_orders[$rs->cat_id] : '');
-		echo '<li id="cat-"'.$rs->cat_id.'>'.
+		echo '<li id="cat-'.$rs->cat_id.'">'.
 			form::hidden(array('co_catid[]'),$rs->cat_id).
 			'<p class="field">'.
 			'<label>'.html::escapeHTML($rs->cat_title).'</label>'.
