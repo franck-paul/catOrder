@@ -16,5 +16,9 @@ $this->registerModule(
 	/* Name */			"Ordering category entries",
 	/* Description*/		"Set category entries order",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.3'
+	/* Version */			'0.3',
+	array(
+		/* Permissions */	'permissions' =>	'admin',
+		/* Type */			'type' =>			'plugin'
+	)
 );
