@@ -15,7 +15,8 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('Ordering category entries').__('Set category entries order');
 
-$_menu['Blog']->addItem(__('Categories orders'),'plugin.php?p=catOrder','index.php?pf=catOrder/icon.png',
+$_menu['Blog']->addItem(__('Categories orders'),'plugin.php?p=catOrder',
+		urldecode(dcPage::getPF('catOrder/icon.png')),
 		preg_match('/plugin.php\?p=catOrder(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
 
@@ -29,8 +30,8 @@ class adminCatOrder
 		$favs->register('catOrder', array(
 			'title' => __('Categories orders'),
 			'url' => 'plugin.php?p=catOrder',
-			'small-icon' => 'index.php?pf=catOrder/icon.png',
-			'large-icon' => 'index.php?pf=catOrder/icon-big.png',
+			'small-icon' => urldecode(dcPage::getPF('catOrder/icon.png')),
+			'large-icon' => urldecode(dcPage::getPF('catOrder/icon-big.png')),
 			'permissions' => 'admin'
 		));
 	}
