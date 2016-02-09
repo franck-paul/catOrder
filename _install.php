@@ -19,10 +19,21 @@ if (version_compare($old_version,$new_version,'>=')) return;
 
 try
 {
+	if (version_compare($old_version,'0.4') < 0) {
+		// Convert oldschool settings
+		dcUpgrade::settings2array('catorder','orders');
+	}
+
+	// Create namespace if necessary
 	$core->blog->settings->addNamespace('catorder');
 
-	$core->blog->settings->catorder->put('active',false,'boolean','Active',false,true);
-	$core->blog->settings->catorder->put('orders','','string','Categories order',false,true);
+	// Chech if settings exist, create them if not
+	if (!$core->blog->settings->catorder->getGlobal('active')) {
+		$core->blog->settings->catorder->put('active',false,'boolean','Active',false,true);
+	}
+	if (!$core->blog->settings->catorder->getGlobal('orders')) {
+		$core->blog->settings->catorder->put('orders',array(),'array','Categories order',false,true);
+	}
 
 	$core->setVersion('catOrder',$new_version);
 

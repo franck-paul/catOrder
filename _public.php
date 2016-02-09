@@ -23,18 +23,15 @@ class behaviorCatOrder
 		if ($core->url->type == 'category') {
 
 			$core->blog->settings->addNamespace('catorder');
-			if ($core->blog->settings->catorder->active && ($core->blog->settings->catorder->orders != '')) {
+			if ($core->blog->settings->catorder->active && (is_array($core->blog->settings->catorder->orders))) {
 
-				$orders = unserialize($core->blog->settings->catorder->orders);
-				if (is_array($orders)) {
-					$cat_id = $_ctx->categories->cat_id;
-					if (array_key_exists($cat_id,$orders)) {
-						if ($orders[$cat_id] != '') {
-							$params['order'] = 'post_dt '.$orders[$cat_id];
-						}
+				$orders = $core->blog->settings->catorder->orders;
+				$cat_id = $_ctx->categories->cat_id;
+				if (array_key_exists($cat_id,$orders)) {
+					if ($orders[$cat_id] != '') {
+						$params['order'] = 'post_dt '.$orders[$cat_id];
 					}
 				}
-
 			}
 		}
 	}

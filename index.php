@@ -14,7 +14,7 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 $core->blog->settings->addNamespace('catorder');
 $co_active = (boolean) $core->blog->settings->catorder->active;
-$co_orders = @unserialize($core->blog->settings->catorder->orders);
+$co_orders = $core->blog->settings->catorder->orders;
 if (!is_array($co_orders)) {
 	$co_orders = array();
 }
@@ -34,7 +34,7 @@ if (!empty($_POST))
 		# Everything's fine, save options
 		$core->blog->settings->addNamespace('catorder');
 		$core->blog->settings->catorder->put('active',$co_active);
-		$core->blog->settings->catorder->put('orders',serialize($co_orders));
+		$core->blog->settings->catorder->put('orders',$co_orders);
 
 		//$core->emptyTemplatesCache();
 		$core->blog->triggerBlog();
