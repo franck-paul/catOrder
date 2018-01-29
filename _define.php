@@ -10,16 +10,17 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-if (!defined('DC_RC_PATH')) { return; }
+if (!defined('DC_RC_PATH')) {return;}
 
 $this->registerModule(
-	/* Name */				"Ordering category entries",
-	/* Description*/		"Set category entries order",
-	/* Author */			"Franck Paul",
-	/* Version */			'0.4',
-	array(
-		/* Dependencies */	'requires' 		=>	array(array('core','2.9')),
-		/* Permissions */	'permissions'	=>	'admin',
-		/* Type */			'type' 			=>	'plugin'
-	)
+    "Ordering category entries",  // Name
+    "Set category entries order", // Description
+    "Franck Paul",                // Author
+    '0.5',                        // Version
+    array(
+        'requires'    => array(array('core', '2.9')),
+        'permissions' => 'admin',
+        'support'     => 'https://open-time.net/?q=catorder', // Support URL
+        'type'        => 'plugin'
+    )
 );

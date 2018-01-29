@@ -10,29 +10,40 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-if (!defined('DC_RC_PATH')) { return; }
+if (!defined('DC_RC_PATH')) {return;}
 
-$core->addBehavior('coreBlogBeforeGetPosts',array('behaviorCatOrder','coreBlogBeforeGetPosts'));
+$core->addBehavior('coreBlogBeforeGetPosts', array('behaviorCatOrder', 'coreBlogBeforeGetPosts'));
 
 class behaviorCatOrder
 {
-	public static function coreBlogBeforeGetPosts($params)
-	{
-		global $core, $_ctx;
+    public static function coreBlogBeforeGetPosts($params)
+    {
+        global $core, $_ctx;
 
-		if ($core->url->type == 'category') {
+        if ($core->url->type == 'category') {
 
-			$core->blog->settings->addNamespace('catorder');
-			if ($core->blog->settings->catorder->active && (is_array($core->blog->settings->catorder->orders))) {
-
-				$orders = $core->blog->settings->catorder->orders;
-				$cat_id = $_ctx->categories->cat_id;
-				if (array_key_exists($cat_id,$orders)) {
-					if ($orders[$cat_id] != '') {
-						$params['order'] = 'post_dt '.$orders[$cat_id];
-					}
-				}
-			}
-		}
-	}
+            $core->blog->settings->addNamespace('catorder');
+            if ($core->blog->settings->catorder->active) {
+                $cat_id = $_ctx->categories->cat_id;
+                $orders = $core->blog->settings->catorder->orders;
+                if (is_array($orders)) {
+                	// Specific order set for the category
+                    if (array_key_exists($cat_id, $orders)) {
+                        if ($orders[$cat_id] != '') {
+                            $params['order'] = 'post_dt ' . $orders[$cat_id];
+                        }
+                    }
+                }
+                $numbers = $core->blog->settings->catorder->numbers;
+                if (is_array($numbers)) {
+                    if (array_key_exists($cat_id, $numbers)) {
+                    	// Specific number of entry per page set for the category
+                        if ($numbers[$cat_id] != '') {
+                            $_ctx->nb_entry_per_page = (integer) $numbers[$cat_id];
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
