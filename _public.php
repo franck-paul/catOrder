@@ -30,7 +30,26 @@ class behaviorCatOrder
                 	// Specific order set for the category
                     if (array_key_exists($cat_id, $orders)) {
                         if ($orders[$cat_id] != '') {
-                            $params['order'] = 'post_dt ' . $orders[$cat_id];
+                        	switch ($orders[$cat_id]) {
+                        		case 'asc':
+                        		case 'desc';
+		                            $params['order'] = 'post_dt';
+		                            break;
+		                        case 'title-asc':
+		                        case 'title-desc':
+		                        	$params['order'] = $core->con->lexFields('post_title');
+		                        	break;
+                        	}
+                        	switch ($orders[$cat_id]) {
+                        		case 'asc':
+                        		case 'title-asc':
+                        			$params['order'] .= ' asc';
+                        			break;
+                        		case 'desc':
+                        		case 'title-desc':
+                        			$params['order'] .= ' desc';
+                        			break;
+                        	}
                         }
                     }
                 }

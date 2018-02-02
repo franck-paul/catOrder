@@ -27,6 +27,12 @@ msgstr "Dans l'ordre ante-chronologique"
 msgid "By date ascending"
 msgstr "Dans l'ordre chronologique"
 
+msgid "By title ascending"
+msgstr "Dans l'ordre lexicographique"
+
+msgid "By title descending"
+msgstr "Dans l'ordre lexicographique inverse"
+
 msgid "Categories entry orders"
 msgstr "Ordre des billets des catégories"
 

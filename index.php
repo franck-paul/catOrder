@@ -57,9 +57,11 @@ if (!empty($_POST)) {
 }
 
 $co_combo = array(
-    __('Default')            => '',
-    __('By date descending') => 'desc',
-    __('By date ascending')  => 'asc'
+    __('Default')             => '',
+    __('By date descending')  => 'desc',
+    __('By date ascending')   => 'asc',
+    __('By title ascending')  => 'title-asc',
+    __('By title descending') => 'title-desc'
 );
 
 ?>
