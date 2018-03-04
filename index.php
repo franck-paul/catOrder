@@ -67,7 +67,7 @@ $co_combo = array(
 ?>
 <html>
 <head>
-	<title><?php echo __('Categories entry orders'); ?></title>
+    <title><?php echo __('Categories entry orders'); ?></title>
 </head>
 
 <body>
@@ -104,7 +104,7 @@ if ($rs->isEmpty()) {
         '<p class="field">' .
         '<label>' . html::escapeHTML($rs->cat_title) . '</label>' .
         form::combo(array('co_order[]'), $co_combo, $order) . ' ' .
-        form::field(array('co_number[]'), 2, 5, (string) $number) .
+        form::number(array('co_number[]'), 0, 99999, $number) .
             '</p>' .
             '</li>';
     }
