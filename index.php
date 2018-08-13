@@ -1,14 +1,15 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-# This file is part of catOrder, a plugin for Dotclear 2.
-#
-# Copyright (c) Franck Paul and contributors
-# carnet.franck.paul@gmail.com
-#
-# Licensed under the GPL version 2.0 license.
-# A copy of this license is available in LICENSE file or at
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-# -- END LICENSE BLOCK ------------------------------------
+/**
+ * @brief catOrder, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugins
+ *
+ * @author Franck Paul and contributors
+ *
+ * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
@@ -67,7 +68,7 @@ $co_combo = array(
 ?>
 <html>
 <head>
-	<title><?php echo __('Categories entry orders'); ?></title>
+    <title><?php echo __('Categories entry orders'); ?></title>
 </head>
 
 <body>
@@ -104,7 +105,7 @@ if ($rs->isEmpty()) {
         '<p class="field">' .
         '<label>' . html::escapeHTML($rs->cat_title) . '</label>' .
         form::combo(array('co_order[]'), $co_combo, $order) . ' ' .
-        form::field(array('co_number[]'), 2, 5, (string) $number) .
+        form::number(array('co_number[]'), 0, 99999, $number) .
             '</p>' .
             '</li>';
     }
