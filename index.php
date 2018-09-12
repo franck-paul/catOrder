@@ -18,23 +18,23 @@ $co_active  = (boolean) $core->blog->settings->catorder->active;
 $co_orders  = $core->blog->settings->catorder->orders;
 $co_numbers = $core->blog->settings->catorder->numbers;
 if (!is_array($co_orders)) {
-    $co_orders = array();
+    $co_orders = [];
 }
 if (!is_array($co_numbers)) {
-    $co_numbers = array();
+    $co_numbers = [];
 }
 
 if (!empty($_POST)) {
     try
     {
         $co_active = (boolean) $_POST['co_active'];
-        $co_orders = array();
+        $co_orders = [];
         if (!empty($_POST['co_order'])) {
             for ($i = 0; $i < count($_POST['co_order']); $i++) {
                 $co_orders[$_POST['co_catid'][$i]] = $_POST['co_order'][$i];
             }
         }
-        $co_numbers = array();
+        $co_numbers = [];
         if (!empty($_POST['co_number'])) {
             for ($i = 0; $i < count($_POST['co_number']); $i++) {
                 $co_numbers[$_POST['co_catid'][$i]] = $_POST['co_number'][$i];
@@ -57,13 +57,13 @@ if (!empty($_POST)) {
     }
 }
 
-$co_combo = array(
+$co_combo = [
     __('Default')             => '',
     __('By date descending')  => 'desc',
     __('By date ascending')   => 'asc',
     __('By title ascending')  => 'title-asc',
     __('By title descending') => 'title-desc'
-);
+];
 
 ?>
 <html>
@@ -74,10 +74,10 @@ $co_combo = array(
 <body>
 <?php
 echo dcPage::breadcrumb(
-    array(
+    [
         html::escapeHTML($core->blog->name) => '',
         __('Categories entry orders')       => ''
-    ));
+    ]);
 echo dcPage::notices();
 
 echo
@@ -92,7 +92,7 @@ echo
 '<p class="form-note">' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'),
     $core->adminurl->get('admin.blog.pref') . '#params.nb_post_per_page') . '</p>';
 
-$rs = $core->blog->getCategories(array('post_type' => 'post'));
+$rs = $core->blog->getCategories(['post_type' => 'post']);
 if ($rs->isEmpty()) {
     echo '<p>' . __('No category yet.') . '</p>';
 } else {
@@ -101,11 +101,11 @@ if ($rs->isEmpty()) {
         $order  = (array_key_exists($rs->cat_id, $co_orders) ? $co_orders[$rs->cat_id] : '');
         $number = (array_key_exists($rs->cat_id, $co_numbers) ? $co_numbers[$rs->cat_id] : '');
         echo '<li id="cat-' . $rs->cat_id . '">' .
-        form::hidden(array('co_catid[]'), $rs->cat_id) .
+        form::hidden(['co_catid[]'], $rs->cat_id) .
         '<p class="field">' .
         '<label>' . html::escapeHTML($rs->cat_title) . '</label>' .
-        form::combo(array('co_order[]'), $co_combo, $order) . ' ' .
-        form::number(array('co_number[]'), 0, 99999, $number) .
+        form::combo(['co_order[]'], $co_combo, $order) . ' ' .
+        form::number(['co_number[]'], 0, 99999, $number) .
             '</p>' .
             '</li>';
     }

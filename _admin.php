@@ -22,18 +22,18 @@ $_menu['Blog']->addItem(__('Categories orders'), 'plugin.php?p=catOrder',
     $core->auth->check('admin', $core->blog->id));
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', array('adminCatOrder', 'adminDashboardFavorites'));
+$core->addBehavior('adminDashboardFavorites', ['adminCatOrder', 'adminDashboardFavorites']);
 
 class adminCatOrder
 {
     public static function adminDashboardFavorites($core, $favs)
     {
-        $favs->register('catOrder', array(
+        $favs->register('catOrder', [
             'title'       => __('Categories orders'),
             'url'         => 'plugin.php?p=catOrder',
             'small-icon'  => urldecode(dcPage::getPF('catOrder/icon.png')),
             'large-icon'  => urldecode(dcPage::getPF('catOrder/icon-big.png')),
             'permissions' => 'admin'
-        ));
+        ]);
     }
 }

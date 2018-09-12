@@ -13,7 +13,7 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->addBehavior('coreBlogBeforeGetPosts', array('behaviorCatOrder', 'coreBlogBeforeGetPosts'));
+$core->addBehavior('coreBlogBeforeGetPosts', ['behaviorCatOrder', 'coreBlogBeforeGetPosts']);
 
 class behaviorCatOrder
 {

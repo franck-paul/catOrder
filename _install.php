@@ -33,10 +33,10 @@ try
         $core->blog->settings->catorder->put('active', false, 'boolean', 'Active', false, true);
     }
     if (!$core->blog->settings->catorder->getGlobal('orders')) {
-        $core->blog->settings->catorder->put('orders', array(), 'array', 'Categories order', false, true);
+        $core->blog->settings->catorder->put('orders', [], 'array', 'Categories order', false, true);
     }
     if (!$core->blog->settings->catorder->getGlobal('numbers')) {
-        $core->blog->settings->catorder->put('numbers', array(), 'array', 'Categories nb of entries per page', false, true);
+        $core->blog->settings->catorder->put('numbers', [], 'array', 'Categories nb of entries per page', false, true);
     }
 
     $core->setVersion('catOrder', $new_version);

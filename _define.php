@@ -18,10 +18,10 @@ $this->registerModule(
     "Set category entries order", // Description
     "Franck Paul",                // Author
     '0.7',                        // Version
-    array(
-        'requires'    => array(array('core', '2.14')),
+    [
+        'requires'    => [['core', '2.14']],
         'permissions' => 'admin',
         'support'     => 'https://open-time.net/?q=catorder', // Support URL
         'type'        => 'plugin'
-    )
+    ]
 );
