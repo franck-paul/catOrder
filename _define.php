@@ -21,7 +21,10 @@ $this->registerModule(
     [
         'requires'    => [['core', '2.14']],
         'permissions' => 'admin',
-        'support'     => 'https://open-time.net/?q=catorder', // Support URL
-        'type'        => 'plugin'
+        'details'     => 'https://open-time.net/?q=catOrder',       // Support URL
+        'support'     => 'https://github.com/franck-paul/catOrder', // Support URL
+        'type'        => 'plugin',
+        'settings'    => [
+        ]
     ]
 );
