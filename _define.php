@@ -10,21 +10,24 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 $this->registerModule(
-    "Ordering category entries",  // Name
-    "Set category entries order", // Description
-    "Franck Paul",                // Author
+    'Ordering category entries',  // Name
+    'Set category entries order', // Description
+    'Franck Paul',                // Author
     '0.7',                        // Version
     [
         'requires'    => [['core', '2.14']],
         'permissions' => 'admin',
-        'details'     => 'https://open-time.net/?q=catOrder',       // Support URL
-        'support'     => 'https://github.com/franck-paul/catOrder', // Support URL
         'type'        => 'plugin',
         'settings'    => [
-        ]
+        ],
+
+        'details'    => 'https://open-time.net/?q=catOrder',       // Details URL
+        'support'    => 'https://github.com/franck-paul/catOrder', // Support URL
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/catOrder/main/dcstore.xml'
     ]
 );
