@@ -28,6 +28,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=catOrder',       // Details URL
         'support'    => 'https://github.com/franck-paul/catOrder', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/catOrder/main/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/catOrder/master/dcstore.xml'
     ]
 );
