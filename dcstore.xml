@@ -1,8 +1,8 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="catOrder">
-    <name>Set category entries order</name>
+    <name>Ordering category entries</name>
     <version>0.7</version>
-    <author>Set category entries order</author>
+    <author>Franck Paul</author>
     <desc>Set category entries order</desc>
     <file>https://github.com/franck-paul/catOrder/releases/download/0.7/plugin-catOrder-0.7.zip</file>
     <da:dcmin>2.14</da:dcmin>
