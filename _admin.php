@@ -10,30 +10,38 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 // dead but useful code, in order to have translations
 __('Ordering category entries') . __('Set category entries order');
 
-$_menu['Blog']->addItem(__('Categories orders'), 'plugin.php?p=catOrder',
-    urldecode(dcPage::getPF('catOrder/icon.png')),
+$_menu['Blog']->addItem(
+    __('Categories orders'),
+    'plugin.php?p=catOrder',
+    [urldecode(dcPage::getPF('catOrder/icon.svg')), urldecode(dcPage::getPF('catOrder/icon-dark.svg'))],
     preg_match('/plugin.php\?p=catOrder(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->check('admin', $core->blog->id));
+    dcCore::app()->auth->check('admin', dcCore::app()->blog->id)
+);
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', ['adminCatOrder', 'adminDashboardFavorites']);
+dcCore::app()->addBehavior('adminDashboardFavorites', ['adminCatOrder', 'adminDashboardFavorites']);
 
 class adminCatOrder
 {
     public static function adminDashboardFavorites($core, $favs)
     {
         $favs->register('catOrder', [
-            'title'       => __('Categories orders'),
-            'url'         => 'plugin.php?p=catOrder',
-            'small-icon'  => urldecode(dcPage::getPF('catOrder/icon.png')),
-            'large-icon'  => urldecode(dcPage::getPF('catOrder/icon-big.png')),
-            'permissions' => 'admin'
+            'title'      => __('Categories orders'),
+            'url'        => 'plugin.php?p=catOrder',
+            'small-icon' => [
+                urldecode(dcPage::getPF('catOrder/icon.svg')),
+                urldecode(dcPage::getPF('catOrder/icon-dark.svg')), ],
+            'large-icon' => [
+                urldecode(dcPage::getPF('catOrder/icon.svg')),
+                urldecode(dcPage::getPF('catOrder/icon-dark.svg')), ],
+            'permissions' => 'admin',
         ]);
     }
 }

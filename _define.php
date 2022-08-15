@@ -18,9 +18,9 @@ $this->registerModule(
     'Ordering category entries',  // Name
     'Set category entries order', // Description
     'Franck Paul',                // Author
-    '0.7',                        // Version
+    '0.8',
     [
-        'requires'    => [['core', '2.14']],
+        'requires'    => [['core', '2.23']],
         'permissions' => 'admin',
         'type'        => 'plugin',
         'settings'    => [
@@ -28,6 +28,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=catOrder',       // Details URL
         'support'    => 'https://github.com/franck-paul/catOrder', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/catOrder/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/catOrder/master/dcstore.xml',
     ]
 );

@@ -10,13 +10,14 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
-
-$core->blog->settings->addNamespace('catorder');
-$co_active  = (boolean) $core->blog->settings->catorder->active;
-$co_orders  = $core->blog->settings->catorder->orders;
-$co_numbers = $core->blog->settings->catorder->numbers;
+dcCore::app()->blog->settings->addNamespace('catorder');
+$co_active  = (bool) dcCore::app()->blog->settings->catorder->active;
+$co_orders  = dcCore::app()->blog->settings->catorder->orders;
+$co_numbers = dcCore::app()->blog->settings->catorder->numbers;
 if (!is_array($co_orders)) {
     $co_orders = [];
 }
@@ -25,9 +26,8 @@ if (!is_array($co_numbers)) {
 }
 
 if (!empty($_POST)) {
-    try
-    {
-        $co_active = (boolean) $_POST['co_active'];
+    try {
+        $co_active = (bool) $_POST['co_active'];
         $co_orders = [];
         if (!empty($_POST['co_order'])) {
             for ($i = 0; $i < count($_POST['co_order']); $i++) {
@@ -42,18 +42,18 @@ if (!empty($_POST)) {
         }
 
         # Everything's fine, save options
-        $core->blog->settings->addNamespace('catorder');
-        $core->blog->settings->catorder->put('active', $co_active);
-        $core->blog->settings->catorder->put('orders', $co_orders);
-        $core->blog->settings->catorder->put('numbers', $co_numbers);
+        dcCore::app()->blog->settings->addNamespace('catorder');
+        dcCore::app()->blog->settings->catorder->put('active', $co_active);
+        dcCore::app()->blog->settings->catorder->put('orders', $co_orders);
+        dcCore::app()->blog->settings->catorder->put('numbers', $co_numbers);
 
-        //$core->emptyTemplatesCache();
-        $core->blog->triggerBlog();
+        //dcCore::app()->emptyTemplatesCache();
+        dcCore::app()->blog->triggerBlog();
 
         dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
         http::redirect($p_url);
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
@@ -62,7 +62,7 @@ $co_combo = [
     __('By date descending')  => 'desc',
     __('By date ascending')   => 'asc',
     __('By title ascending')  => 'title-asc',
-    __('By title descending') => 'title-desc'
+    __('By title descending') => 'title-desc',
 ];
 
 ?>
@@ -75,9 +75,10 @@ $co_combo = [
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML($core->blog->name) => '',
-        __('Categories entry orders')       => ''
-    ]);
+        html::escapeHTML(dcCore::app()->blog->name) => '',
+        __('Categories entry orders')               => '',
+    ]
+);
 echo dcPage::notices();
 
 echo
@@ -89,10 +90,12 @@ echo
 echo
 '<h3>' . __('Order and number of entries per page') . '</h3>' .
 '<p class="form-note">' . __('Set order to Default to use the order set by the theme.') . '</p>' .
-'<p class="form-note">' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'),
-    $core->adminurl->get('admin.blog.pref') . '#params.nb_post_per_page') . '</p>';
+'<p class="form-note">' . sprintf(
+    __('Leave number blank to use the default blog <a href="%s">parameter</a>.'),
+    dcCore::app()->adminurl->get('admin.blog.pref') . '#params.nb_post_per_page'
+) . '</p>';
 
-$rs = $core->blog->getCategories(['post_type' => 'post']);
+$rs = dcCore::app()->blog->getCategories(['post_type' => 'post']);
 if ($rs->isEmpty()) {
     echo '<p>' . __('No category yet.') . '</p>';
 } else {
@@ -113,7 +116,7 @@ if ($rs->isEmpty()) {
 }
 
 echo
-'<p>' . $core->formNonce() . '<input type="submit" value="' . __('Save') . '" /></p>' .
+'<p>' . dcCore::app()->formNonce() . '<input type="submit" value="' . __('Save') . '" /></p>' .
     '</form>';
 
 ?>
