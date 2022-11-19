@@ -47,7 +47,6 @@ if (!empty($_POST)) {
         dcCore::app()->blog->settings->catorder->put('orders', $co_orders);
         dcCore::app()->blog->settings->catorder->put('numbers', $co_numbers);
 
-        //dcCore::app()->emptyTemplatesCache();
         dcCore::app()->blog->triggerBlog();
 
         dcPage::addSuccessNotice(__('Settings have been successfully updated.'));

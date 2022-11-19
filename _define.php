@@ -15,19 +15,21 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Ordering category entries',  // Name
-    'Set category entries order', // Description
-    'Franck Paul',                // Author
-    '0.8',
+    'Ordering category entries',
+    'Set category entries order',
+    'Franck Paul',
+    '0.9',
     [
-        'requires'    => [['core', '2.23']],
-        'permissions' => 'admin',
-        'type'        => 'plugin',
-        'settings'    => [
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'settings' => [
         ],
 
-        'details'    => 'https://open-time.net/?q=catOrder',       // Details URL
-        'support'    => 'https://github.com/franck-paul/catOrder', // Support URL
+        'details'    => 'https://open-time.net/?q=catOrder',
+        'support'    => 'https://github.com/franck-paul/catOrder',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/catOrder/master/dcstore.xml',
     ]
 );
