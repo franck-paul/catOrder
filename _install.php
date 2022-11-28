@@ -17,12 +17,12 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 $new_version = dcCore::app()->plugins->moduleInfo('catOrder', 'version');
 $old_version = dcCore::app()->getVersion('catOrder');
 
-if (version_compare($old_version, $new_version, '>=')) {
+if (version_compare((string) $old_version, $new_version, '>=')) {
     return;
 }
 
 try {
-    if (version_compare($old_version, '0.4') < 0) {
+    if (version_compare((string) $old_version, '0.4') < 0) {
         // Convert oldschool settings
         dcUpgrade::settings2array('catorder', 'orders');
     }
