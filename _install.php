@@ -14,14 +14,13 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = dcCore::app()->plugins->moduleInfo('catOrder', 'version');
-$old_version = dcCore::app()->getVersion('catOrder');
-
-if (version_compare((string) $old_version, $new_version, '>=')) {
+if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->moduleInfo(basename(__DIR__), 'version'))) {
     return;
 }
 
 try {
+    $old_version = dcCore::app()->getVersion(basename(__DIR__));
+
     if (version_compare((string) $old_version, '0.4') < 0) {
         // Convert oldschool settings
         dcUpgrade::settings2array('catorder', 'orders');
@@ -40,8 +39,6 @@ try {
     if (!dcCore::app()->blog->settings->catorder->getGlobal('numbers')) {
         dcCore::app()->blog->settings->catorder->put('numbers', [], 'array', 'Categories nb of entries per page', false, true);
     }
-
-    dcCore::app()->setVersion('catOrder', $new_version);
 
     return true;
 } catch (Exception $e) {
