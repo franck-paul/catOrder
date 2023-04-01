@@ -10,11 +10,14 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-dcCore::app()->blog->settings->addNamespace('catorder');
 $co_active  = (bool) dcCore::app()->blog->settings->catorder->active;
 $co_orders  = dcCore::app()->blog->settings->catorder->orders;
 $co_numbers = dcCore::app()->blog->settings->catorder->numbers;
@@ -30,19 +33,18 @@ if (!empty($_POST)) {
         $co_active = (bool) $_POST['co_active'];
         $co_orders = [];
         if (!empty($_POST['co_order'])) {
-            for ($i = 0; $i < count($_POST['co_order']); $i++) {
+            for ($i = 0; $i < (is_countable($_POST['co_order']) ? count($_POST['co_order']) : 0); $i++) {
                 $co_orders[$_POST['co_catid'][$i]] = $_POST['co_order'][$i];
             }
         }
         $co_numbers = [];
         if (!empty($_POST['co_number'])) {
-            for ($i = 0; $i < count($_POST['co_number']); $i++) {
+            for ($i = 0; $i < (is_countable($_POST['co_number']) ? count($_POST['co_number']) : 0); $i++) {
                 $co_numbers[$_POST['co_catid'][$i]] = $_POST['co_number'][$i];
             }
         }
 
         # Everything's fine, save options
-        dcCore::app()->blog->settings->addNamespace('catorder');
         dcCore::app()->blog->settings->catorder->put('active', $co_active);
         dcCore::app()->blog->settings->catorder->put('orders', $co_orders);
         dcCore::app()->blog->settings->catorder->put('numbers', $co_numbers);
@@ -50,7 +52,7 @@ if (!empty($_POST)) {
         dcCore::app()->blog->triggerBlog();
 
         dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
-        http::redirect(dcCore::app()->admin->getPageURL());
+        Http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -74,7 +76,7 @@ $co_combo = [
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML(dcCore::app()->blog->name) => '',
+        Html::escapeHTML(dcCore::app()->blog->name) => '',
         __('Categories entry orders')               => '',
     ]
 );
@@ -105,7 +107,7 @@ if ($rs->isEmpty()) {
         echo '<li id="cat-' . $rs->cat_id . '">' .
         form::hidden(['co_catid[]'], $rs->cat_id) .
         '<p class="field">' .
-        '<label>' . html::escapeHTML($rs->cat_title) . '</label>' .
+        '<label>' . Html::escapeHTML($rs->cat_title) . '</label>' .
         form::combo(['co_order[]'], $co_combo, $order) . ' ' .
         form::number(['co_number[]'], 0, 99999, $number) .
             '</p>' .

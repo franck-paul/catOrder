@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 catOrder module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-28 12:47+0100\n"
+"POT-Creation-Date: 2023-04-01 10:59+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -47,7 +47,7 @@ msgstr "Mettez l'ordre à Défaut pour utiliser l'ordre défini dans le thème."
 
 #, php-format
 msgid "Leave number blank to use the default blog <a href=\"%s\">parameter</a>."
-msgstr "Laissez le nombre vide pour utiliser le <a href="%s">paramètre</a> par défaut du blog."
+msgstr "Laissez le nombre vide pour utiliser le <a href=\"%s\">paramètre</a> par défaut du blog."
 
 msgid "No category yet."
 msgstr "Aucune catégorie pour l'instant."

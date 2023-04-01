@@ -10,16 +10,11 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
-
 class behaviorCatOrder
 {
     public static function coreBlogBeforeGetPosts($params)
     {
         if (dcCore::app()->url->type == 'category') {
-            dcCore::app()->blog->settings->addNamespace('catorder');
             if (dcCore::app()->blog->settings->catorder->active) {
                 $cat_id = dcCore::app()->ctx->categories->cat_id;
                 $orders = dcCore::app()->blog->settings->catorder->orders;

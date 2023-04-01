@@ -26,9 +26,6 @@ try {
         dcUpgrade::settings2array('catorder', 'orders');
     }
 
-    // Create namespace if necessary
-    dcCore::app()->blog->settings->addNamespace('catorder');
-
     // Chech if settings exist, create them if not
     if (!dcCore::app()->blog->settings->catorder->getGlobal('active')) {
         dcCore::app()->blog->settings->catorder->put('active', false, 'boolean', 'Active', false, true);

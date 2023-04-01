@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 catOrder module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-02 16:24+0100\n"
+"POT-Creation-Date: 2023-04-01 10:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,55 +16,63 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hg-plugins/catOrder/_admin.php:16
+#: ../git-plugins/catOrder/_admin.php:18
 msgid "Ordering category entries"
 msgstr ""
 
-#: ../hg-plugins/catOrder/_admin.php:16
+#: ../git-plugins/catOrder/_admin.php:18
 msgid "Set category entries order"
 msgstr ""
 
-#: ../hg-plugins/catOrder/_admin.php:18 ../hg-plugins/catOrder/_admin.php:31
+#: ../git-plugins/catOrder/_admin.php:21 ../git-plugins/catOrder/_admin.php:35
 msgid "Categories orders"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:61
+#: ../git-plugins/catOrder/index.php:62
+msgid "Default"
+msgstr ""
+
+#: ../git-plugins/catOrder/index.php:63
 msgid "By date descending"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:62
+#: ../git-plugins/catOrder/index.php:64
 msgid "By date ascending"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:63
+#: ../git-plugins/catOrder/index.php:65
 msgid "By title ascending"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:64
+#: ../git-plugins/catOrder/index.php:66
 msgid "By title descending"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:70 ../hg-plugins/catOrder/index.php:78
+#: ../git-plugins/catOrder/index.php:72 ../git-plugins/catOrder/index.php:80
 msgid "Categories entry orders"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:85
+#: ../git-plugins/catOrder/index.php:88
 msgid "Activate user-defined orders for this blog's categories"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:89
+#: ../git-plugins/catOrder/index.php:92
 msgid "Order and number of entries per page"
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:90
+#: ../git-plugins/catOrder/index.php:93
 msgid "Set order to Default to use the order set by the theme."
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:91
+#: ../git-plugins/catOrder/index.php:95
 #, php-format
 msgid "Leave number blank to use the default blog <a href=\"%s\">parameter</a>."
 msgstr ""
 
-#: ../hg-plugins/catOrder/index.php:96
+#: ../git-plugins/catOrder/index.php:101
 msgid "No category yet."
+msgstr ""
+
+#: ../git-plugins/catOrder/index.php:120
+msgid "Save"
 msgstr ""
