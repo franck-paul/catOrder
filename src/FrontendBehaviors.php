@@ -10,14 +10,21 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-class behaviorCatOrder
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\catOrder;
+
+use dcCore;
+
+class FrontendBehaviors
 {
     public static function coreBlogBeforeGetPosts($params)
     {
         if (dcCore::app()->url->type == 'category') {
-            if (dcCore::app()->blog->settings->catorder->active) {
+            $settings = dcCore::app()->blog->settings->get(My::id());
+            if ($settings->active) {
                 $cat_id = dcCore::app()->ctx->categories->cat_id;
-                $orders = dcCore::app()->blog->settings->catorder->orders;
+                $orders = $settings->orders;
                 if (is_array($orders) && array_key_exists($cat_id, $orders) && $orders[$cat_id] != '') {
                     // Specific order set for the category
                     switch ($orders[$cat_id]) {
@@ -45,7 +52,7 @@ class behaviorCatOrder
                             break;
                     }
                 }
-                $numbers = dcCore::app()->blog->settings->catorder->numbers;
+                $numbers = $settings->numbers;
                 if (is_array($numbers) && array_key_exists($cat_id, $numbers) && $numbers[$cat_id] != '') {
                     // Specific number of entry per page set for the category
                     dcCore::app()->ctx->nb_entry_per_page = (int) $numbers[$cat_id];
@@ -54,5 +61,3 @@ class behaviorCatOrder
         }
     }
 }
-
-dcCore::app()->addBehavior('coreBlogBeforeGetPosts', [behaviorCatOrder::class, 'coreBlogBeforeGetPosts']);
