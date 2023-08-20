@@ -16,23 +16,20 @@ namespace Dotclear\Plugin\catOrder;
 
 use dcCore;
 use dcNamespace;
-use dcNsProcess;
-use dcUpgrade;
+use Dotclear\Core\Process;
+use Dotclear\Core\Upgrade\Upgrade;
 use Exception;
 
-class Install extends dcNsProcess
+class Install extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::INSTALL);
-
-        return static::$init;
+        return self::status(My::checkContext(My::INSTALL));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -41,7 +38,7 @@ class Install extends dcNsProcess
             $old_version = dcCore::app()->getVersion(My::id());
             if (version_compare((string) $old_version, '0.4') < 0) {
                 // Convert oldschool settings
-                dcUpgrade::settings2array('catorder', 'orders');
+                Upgrade::settings2array('catorder', 'orders');
             }
             if (version_compare((string) $old_version, '2.0', '<')) {
                 // Rename settings namespace

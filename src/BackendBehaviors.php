@@ -14,15 +14,15 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\catOrder;
 
-use dcFavorites;
+use Dotclear\Core\Backend\Favorites;
 
 class BackendBehaviors
 {
-    public static function adminDashboardFavorites(dcFavorites $favs)
+    public static function adminDashboardFavorites(Favorites $favs)
     {
         $favs->register('catOrder', [
             'title'       => __('Categories orders'),
-            'url'         => My::makeUrl(),
+            'url'         => My::manageUrl(),
             'small-icon'  => My::icons(),
             'large-icon'  => My::icons(),
             'permissions' => My::checkContext(My::MENU),

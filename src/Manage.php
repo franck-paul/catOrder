@@ -16,8 +16,9 @@ namespace Dotclear\Plugin\catOrder;
 
 use dcCore;
 use dcNamespace;
-use dcNsProcess;
-use dcPage;
+use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Hidden;
@@ -30,17 +31,14 @@ use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
-class Manage extends dcNsProcess
+class Manage extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::MANAGE);
-
-        return static::$init;
+        return self::status(My::checkContext(My::MANAGE));
     }
 
     /**
@@ -48,7 +46,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -76,8 +74,8 @@ class Manage extends dcNsProcess
 
                 dcCore::app()->blog->triggerBlog();
 
-                dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                Notices::addSuccessNotice(__('Settings have been successfully updated.'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -91,7 +89,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 
@@ -159,15 +157,15 @@ class Manage extends dcNsProcess
                 ]);
         }
 
-        dcPage::openModule(__('Categories entry orders'));
+        Page::openModule(__('Categories entry orders'));
 
-        echo dcPage::breadcrumb(
+        echo Page::breadcrumb(
             [
                 Html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('Categories entry orders')               => '',
             ]
         );
-        echo dcPage::notices();
+        echo Notices::getNotices();
 
         // Form
 
@@ -180,7 +178,7 @@ class Manage extends dcNsProcess
                     ->label((new Label(__('Activate user-defined orders for this blog\'s categories'), Label::INSIDE_TEXT_AFTER))),
                 (new Text('h3', __('Order and number of entries per page'))),
                 (new Para())->class('form-note')->items([
-                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), dcCore::app()->adminurl->get('admin.blog.pref') . '#params.nb_post_per_page'))),
+                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), dcCore::app()->admin->url->get('admin.blog.pref') . '#params.nb_post_per_page'))),
                 ]),
                 $block,
                 // Submit
@@ -192,6 +190,6 @@ class Manage extends dcNsProcess
             ])
         ->render();
 
-        dcPage::closeModule();
+        Page::closeModule();
     }
 }
