@@ -21,7 +21,7 @@ class FrontendBehaviors
     public static function coreBlogBeforeGetPosts($params)
     {
         if (dcCore::app()->url->type == 'category') {
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
             if ($settings->active) {
                 $cat_id = dcCore::app()->ctx->categories->cat_id;
                 $orders = $settings->orders;

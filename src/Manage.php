@@ -67,7 +67,7 @@ class Manage extends Process
                 }
 
                 # Everything's fine, save options
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
                 $settings->put('active', $co_active, dcNamespace::NS_BOOL);
                 $settings->put('orders', $co_orders, dcNamespace::NS_ARRAY);
                 $settings->put('numbers', $co_numbers, dcNamespace::NS_ARRAY);
@@ -93,7 +93,7 @@ class Manage extends Process
             return;
         }
 
-        $settings   = dcCore::app()->blog->settings->get(My::id());
+        $settings   = My::settings();
         $co_active  = (bool) $settings->active;
         $co_orders  = $settings->orders;
         $co_numbers = $settings->numbers;
@@ -157,7 +157,7 @@ class Manage extends Process
                 ]);
         }
 
-        Page::openModule(__('Categories entry orders'));
+        Page::openModule(My::name());
 
         echo Page::breadcrumb(
             [
@@ -185,7 +185,7 @@ class Manage extends Process
                 (new Para())->items([
                     (new Submit(['frmsubmit']))
                         ->value(__('Save')),
-                    dcCore::app()->formNonce(false),
+                    ... My::hiddenFields(),
                 ]),
             ])
         ->render();

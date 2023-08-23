@@ -49,7 +49,7 @@ class Install extends Process
             }
 
             // Chech if settings exist, create them if not
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
             if (!$settings->getGlobal('active')) {
                 $settings->put('active', false, dcNamespace::NS_BOOL, 'Active', false, true);
             }
