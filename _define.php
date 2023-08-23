@@ -14,7 +14,7 @@ $this->registerModule(
     'Ordering category entries',
     'Set category entries order',
     'Franck Paul',
-    '2.1.1',
+    '3.0',
     [
         'requires'    => [['core', '2.27'], ['php', '8.1']],
         'permissions' => dcCore::app()->auth->makePermissions([
