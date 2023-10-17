@@ -18,7 +18,7 @@ use Dotclear\Core\Backend\Favorites;
 
 class BackendBehaviors
 {
-    public static function adminDashboardFavorites(Favorites $favs)
+    public static function adminDashboardFavorites(Favorites $favs): string
     {
         $favs->register('catOrder', [
             'title'       => __('Categories orders'),
@@ -27,5 +27,7 @@ class BackendBehaviors
             'large-icon'  => My::icons(),
             'permissions' => My::checkContext(My::MENU),
         ]);
+
+        return '';
     }
 }

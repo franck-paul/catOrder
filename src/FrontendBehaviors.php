@@ -14,11 +14,15 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\catOrder;
 
+use ArrayObject;
 use dcCore;
 
 class FrontendBehaviors
 {
-    public static function coreBlogBeforeGetPosts($params)
+    /**
+     * @param      ArrayObject<string, mixed>  $params  The parameters
+     */
+    public static function coreBlogBeforeGetPosts(ArrayObject $params): string
     {
         if (dcCore::app()->url->type == 'category') {
             $settings = My::settings();
@@ -59,5 +63,7 @@ class FrontendBehaviors
                 }
             }
         }
+
+        return '';
     }
 }

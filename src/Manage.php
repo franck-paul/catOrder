@@ -75,7 +75,7 @@ class Manage extends Process
                 dcCore::app()->blog->triggerBlog();
 
                 Notices::addSuccessNotice(__('Settings have been successfully updated.'));
-                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id());
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -178,7 +178,7 @@ class Manage extends Process
                     ->label((new Label(__('Activate user-defined orders for this blog\'s categories'), Label::INSIDE_TEXT_AFTER))),
                 (new Text('h3', __('Order and number of entries per page'))),
                 (new Para())->class('form-note')->items([
-                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), dcCore::app()->admin->url->get('admin.blog.pref') . '#params.nb_post_per_page'))),
+                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), dcCore::app()->adminurl->get('admin.blog.pref') . '#params.nb_post_per_page'))),
                 ]),
                 $block,
                 // Submit
