@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\catOrder;
 
 use dcCore;
 use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Core\Upgrade\Upgrade;
 use Exception;
@@ -42,9 +43,9 @@ class Install extends Process
             }
             if (version_compare((string) $old_version, '2.0', '<')) {
                 // Rename settings namespace
-                if (dcCore::app()->blog->settings->exists('catorder')) {
-                    dcCore::app()->blog->settings->delNamespace(My::id());
-                    dcCore::app()->blog->settings->renNamespace('catorder', My::id());
+                if (App::blog()->settings()->exists('catorder')) {
+                    App::blog()->settings()->delNamespace(My::id());
+                    App::blog()->settings()->renNamespace('catorder', My::id());
                 }
             }
 

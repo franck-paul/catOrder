@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\catOrder;
 
 use dcCore;
 use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
@@ -72,7 +73,7 @@ class Manage extends Process
                 $settings->put('orders', $co_orders, dcNamespace::NS_ARRAY);
                 $settings->put('numbers', $co_numbers, dcNamespace::NS_ARRAY);
 
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
 
                 Notices::addSuccessNotice(__('Settings have been successfully updated.'));
                 dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
@@ -113,7 +114,7 @@ class Manage extends Process
         ];
 
         // Prepare lines
-        $rs = dcCore::app()->blog->getCategories(['post_type' => 'post']);
+        $rs = App::blog()->getCategories(['post_type' => 'post']);
         if ($rs->isEmpty()) {
             $block = (new Para())->items([
                 (new Text(null, __('No category yet.'))),
@@ -161,8 +162,8 @@ class Manage extends Process
 
         echo Page::breadcrumb(
             [
-                Html::escapeHTML(dcCore::app()->blog->name) => '',
-                __('Categories entry orders')               => '',
+                Html::escapeHTML(App::blog()->name()) => '',
+                __('Categories entry orders')         => '',
             ]
         );
         echo Notices::getNotices();
