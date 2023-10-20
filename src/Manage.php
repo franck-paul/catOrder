@@ -126,7 +126,7 @@ class Manage extends Process
                 $raws[] = (new Para('cat-' . $rs->cat_id, 'tr'))
                     ->items([
                         (new Para(null, 'td'))->items([
-                            (new Text(null, str_repeat('&nbsp;&nbsp;', $rs->level - 1) . Html::escapeHTML($rs->cat_title))),
+                            (new Text(null, str_repeat('&nbsp;&nbsp;', (int) $rs->level - 1) . Html::escapeHTML($rs->cat_title))),
                             (new Hidden(['co_catid[]'], $rs->cat_id)),
                         ]),
                         (new Para(null, 'td'))->items([
