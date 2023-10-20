@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\catOrder;
 
 use ArrayObject;
-use dcCore;
+use Dotclear\App;
 
 class FrontendBehaviors
 {
@@ -24,10 +24,10 @@ class FrontendBehaviors
      */
     public static function coreBlogBeforeGetPosts(ArrayObject $params): string
     {
-        if (dcCore::app()->url->type == 'category') {
+        if (App::url()->type == 'category') {
             $settings = My::settings();
             if ($settings->active) {
-                $cat_id = dcCore::app()->ctx->categories->cat_id;
+                $cat_id = App::frontend()->context()->categories->cat_id;
                 $orders = $settings->orders;
                 if (is_array($orders) && array_key_exists($cat_id, $orders) && $orders[$cat_id] != '') {
                     // Specific order set for the category
@@ -39,7 +39,7 @@ class FrontendBehaviors
                             break;
                         case 'title-asc':
                         case 'title-desc':
-                            $params->offsetSet('order', dcCore::app()->con->lexFields('post_title'));
+                            $params->offsetSet('order', App::con()->lexFields('post_title'));
 
                             break;
                     }
@@ -59,7 +59,7 @@ class FrontendBehaviors
                 $numbers = $settings->numbers;
                 if (is_array($numbers) && array_key_exists($cat_id, $numbers) && $numbers[$cat_id] != '') {
                     // Specific number of entry per page set for the category
-                    dcCore::app()->ctx->nb_entry_per_page = (int) $numbers[$cat_id];
+                    App::frontend()->context()->nb_entry_per_page = (int) $numbers[$cat_id];
                 }
             }
         }

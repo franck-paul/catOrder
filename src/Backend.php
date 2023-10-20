@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\catOrder;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
@@ -37,7 +37,9 @@ class Backend extends Process
         My::addBackendMenuItem(Menus::MENU_BLOG);
 
         // Register favorite
-        dcCore::app()->addBehavior('adminDashboardFavoritesV2', BackendBehaviors::adminDashboardFavorites(...));
+        App::behavior()->addBehaviors([
+            'adminDashboardFavoritesV2' => BackendBehaviors::adminDashboardFavorites(...),
+        ]);
 
         return true;
     }

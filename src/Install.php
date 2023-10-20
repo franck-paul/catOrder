@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\catOrder;
 
-use dcCore;
-use dcNamespace;
 use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Core\Upgrade\Upgrade;
@@ -36,7 +34,7 @@ class Install extends Process
 
         try {
             // Update
-            $old_version = dcCore::app()->getVersion(My::id());
+            $old_version = App::version()->getVersion(My::id());
             if (version_compare((string) $old_version, '0.4') < 0) {
                 // Convert oldschool settings
                 Upgrade::settings2array('catorder', 'orders');
@@ -44,24 +42,24 @@ class Install extends Process
             if (version_compare((string) $old_version, '2.0', '<')) {
                 // Rename settings namespace
                 if (App::blog()->settings()->exists('catorder')) {
-                    App::blog()->settings()->delNamespace(My::id());
-                    App::blog()->settings()->renNamespace('catorder', My::id());
+                    App::blog()->settings()->delWorkspace(My::id());
+                    App::blog()->settings()->renWorkspace('catorder', My::id());
                 }
             }
 
             // Chech if settings exist, create them if not
             $settings = My::settings();
             if (!$settings->getGlobal('active')) {
-                $settings->put('active', false, dcNamespace::NS_BOOL, 'Active', false, true);
+                $settings->put('active', false, App::blogWorkspace()::NS_BOOL, 'Active', false, true);
             }
             if (!$settings->getGlobal('orders')) {
-                $settings->put('orders', [], dcNamespace::NS_ARRAY, 'Categories order', false, true);
+                $settings->put('orders', [], App::blogWorkspace()::NS_ARRAY, 'Categories order', false, true);
             }
             if (!$settings->getGlobal('numbers')) {
-                $settings->put('numbers', [], dcNamespace::NS_ARRAY, 'Categories nb of entries per page', false, true);
+                $settings->put('numbers', [], App::blogWorkspace()::NS_ARRAY, 'Categories nb of entries per page', false, true);
             }
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;

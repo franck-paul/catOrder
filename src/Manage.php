@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\catOrder;
 
-use dcCore;
-use dcNamespace;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
@@ -69,16 +67,16 @@ class Manage extends Process
 
                 # Everything's fine, save options
                 $settings = My::settings();
-                $settings->put('active', $co_active, dcNamespace::NS_BOOL);
-                $settings->put('orders', $co_orders, dcNamespace::NS_ARRAY);
-                $settings->put('numbers', $co_numbers, dcNamespace::NS_ARRAY);
+                $settings->put('active', $co_active, App::blogWorkspace()::NS_BOOL);
+                $settings->put('orders', $co_orders, App::blogWorkspace()::NS_ARRAY);
+                $settings->put('numbers', $co_numbers, App::blogWorkspace()::NS_ARRAY);
 
                 App::blog()->triggerBlog();
 
                 Notices::addSuccessNotice(__('Settings have been successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                My::redirect();
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -171,7 +169,7 @@ class Manage extends Process
         // Form
 
         echo (new Form('catorder_settings'))
-            ->action(dcCore::app()->admin->getPageURL())
+            ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
                 (new Checkbox('co_active', $co_active))
@@ -179,7 +177,7 @@ class Manage extends Process
                     ->label((new Label(__('Activate user-defined orders for this blog\'s categories'), Label::INSIDE_TEXT_AFTER))),
                 (new Text('h3', __('Order and number of entries per page'))),
                 (new Para())->class('form-note')->items([
-                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), dcCore::app()->adminurl->get('admin.blog.pref') . '#params.nb_post_per_page'))),
+                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), App::backend()->url()->get('admin.blog.pref') . '#params.nb_post_per_page'))),
                 ]),
                 $block,
                 // Submit

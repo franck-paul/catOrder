@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\catOrder;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -36,7 +36,9 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehavior('coreBlogBeforeGetPosts', FrontendBehaviors::coreBlogBeforeGetPosts(...));
+        App::behavior()->addBehaviors([
+            'coreBlogBeforeGetPosts' => FrontendBehaviors::coreBlogBeforeGetPosts(...),
+        ]);
 
         return true;
     }
