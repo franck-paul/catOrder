@@ -49,18 +49,19 @@ class Manage extends Process
             return false;
         }
 
-        if (!empty($_POST)) {
+        if ($_POST !== []) {
             try {
                 $co_active = (bool) $_POST['co_active'];
                 $co_orders = [];
                 if (!empty($_POST['co_order'])) {
-                    for ($i = 0; $i < (is_countable($_POST['co_order']) ? count($_POST['co_order']) : 0); $i++) {
+                    for ($i = 0; $i < (is_countable($_POST['co_order']) ? count($_POST['co_order']) : 0); ++$i) {
                         $co_orders[$_POST['co_catid'][$i]] = $_POST['co_order'][$i];
                     }
                 }
+
                 $co_numbers = [];
                 if (!empty($_POST['co_number'])) {
-                    for ($i = 0; $i < (is_countable($_POST['co_number']) ? count($_POST['co_number']) : 0); $i++) {
+                    for ($i = 0; $i < (is_countable($_POST['co_number']) ? count($_POST['co_number']) : 0); ++$i) {
                         $co_numbers[$_POST['co_catid'][$i]] = $_POST['co_number'][$i];
                     }
                 }
@@ -99,6 +100,7 @@ class Manage extends Process
         if (!is_array($co_orders)) {
             $co_orders = [];
         }
+
         if (!is_array($co_numbers)) {
             $co_numbers = [];
         }
@@ -139,6 +141,7 @@ class Manage extends Process
                         ]),
                     ]);
             }
+
             $block = (new Para(null, 'table'))
                 ->items([
                     (new Para(null, 'thead'))->items([

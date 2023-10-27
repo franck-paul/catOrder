@@ -24,7 +24,7 @@ class FrontendBehaviors
      */
     public static function coreBlogBeforeGetPosts(ArrayObject $params): string
     {
-        if (App::url()->type == 'category') {
+        if (App::url()->getType() == 'category') {
             $settings = My::settings();
             if ($settings->active) {
                 $cat_id = App::frontend()->context()->categories->cat_id;
@@ -43,6 +43,7 @@ class FrontendBehaviors
 
                             break;
                     }
+
                     switch ($orders[$cat_id]) {
                         case 'asc':
                         case 'title-asc':
@@ -56,6 +57,7 @@ class FrontendBehaviors
                             break;
                     }
                 }
+
                 $numbers = $settings->numbers;
                 if (is_array($numbers) && array_key_exists($cat_id, $numbers) && $numbers[$cat_id] != '') {
                     // Specific number of entry per page set for the category
