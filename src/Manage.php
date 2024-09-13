@@ -180,14 +180,14 @@ class Manage extends Process
                     ->label((new Label(__('Activate user-defined orders for this blog\'s categories'), Label::INSIDE_TEXT_AFTER))),
                 (new Text('h3', __('Order and number of entries per page'))),
                 (new Para())->class('form-note')->items([
-                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br />' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), App::backend()->url()->get('admin.blog.pref') . '#params.nb_post_per_page'))),
+                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br>' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), App::backend()->url()->get('admin.blog.pref') . '#params.nb_post_per_page'))),
                 ]),
                 $block,
                 // Submit
                 (new Para())->items([
                     (new Submit(['frmsubmit']))
                         ->value(__('Save')),
-                    ... My::hiddenFields(),
+                    ...My::hiddenFields(),
                 ]),
             ])
         ->render();
