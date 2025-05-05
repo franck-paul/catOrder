@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief catOrder, a plugin for Dotclear 2
  *
@@ -22,11 +23,18 @@ use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Hidden;
 use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
 use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
@@ -116,47 +124,52 @@ class Manage extends Process
         // Prepare lines
         $rs = App::blog()->getCategories(['post_type' => 'post']);
         if ($rs->isEmpty()) {
-            $block = (new Para())->items([
-                (new Text(null, __('No category yet.'))),
-            ]);
+            $block = (new Note())
+                ->text(__('No category yet.'));
         } else {
             $raws = [];
             while ($rs->fetch()) {
                 $order  = (array_key_exists($rs->cat_id, $co_orders) ? $co_orders[$rs->cat_id] : '');
                 $number = (array_key_exists($rs->cat_id, $co_numbers) ? $co_numbers[$rs->cat_id] : '');
 
-                $raws[] = (new Para('cat-' . $rs->cat_id, 'tr'))
+                $raws[] = (new Tr('cat-' . $rs->cat_id))
                     ->items([
-                        (new Para(null, 'td'))->items([
-                            (new Text(null, str_repeat('&nbsp;&nbsp;', (int) $rs->level - 1) . Html::escapeHTML($rs->cat_title))),
-                            (new Hidden(['co_catid[]'], $rs->cat_id)),
-                        ]),
-                        (new Para(null, 'td'))->items([
-                            (new Select(['co_order[]', 'cat-' . $rs->cat_id]))
-                                ->items($co_combo)
-                                ->default($order),
-                        ]),
-                        (new Para(null, 'td'))->items([
-                            (new Number(['co_number[]'], 0, 99_999, (int) $number)),
-                        ]),
+                        (new Td())
+                            ->items([
+                                (new Text(null, str_repeat('&nbsp;&nbsp;', (int) $rs->level - 1) . Html::escapeHTML($rs->cat_title))),
+                                (new Hidden(['co_catid[]'], $rs->cat_id)),
+                            ]),
+                        (new Td())
+                            ->items([
+                                (new Select(['co_order[]', 'cat-' . $rs->cat_id]))
+                                    ->items($co_combo)
+                                    ->default($order),
+                            ]),
+                        (new Td())
+                            ->items([
+                                (new Number(['co_number[]'], 0, 99_999, (int) $number)),
+                            ]),
                     ]);
             }
 
-            $block = (new Para(null, 'table'))
-                ->items([
-                    (new Para(null, 'thead'))->items([
-                        (new Para(null, 'th'))->items([
-                            (new Text(null, __('Category'))),
-                        ]),
-                        (new Para(null, 'th'))->items([
-                            (new Text(null, __('Order'))),
-                        ]),
-                        (new Para(null, 'th'))->items([
-                            (new Text(null, __('Number of items per page'))),
-                        ]),
-                    ]),
-                    (new Para(null, 'tbody'))->items($raws),
-                ]);
+            $block = (new Table())
+                ->thead((new Thead())
+                    ->items([
+                        (new Th())
+                            ->items([
+                                (new Text(null, __('Category'))),
+                            ]),
+                        (new Th())
+                            ->items([
+                                (new Text(null, __('Order'))),
+                            ]),
+                        (new Th())
+                            ->items([
+                                (new Text(null, __('Number of items per page'))),
+                            ]),
+                    ]))
+                ->tbody((new Tbody())
+                    ->items($raws));
         }
 
         Page::openModule(My::name());
@@ -179,9 +192,9 @@ class Manage extends Process
                     ->value(1)
                     ->label((new Label(__('Activate user-defined orders for this blog\'s categories'), Label::INSIDE_TEXT_AFTER))),
                 (new Text('h3', __('Order and number of entries per page'))),
-                (new Para())->class('form-note')->items([
-                    (new Text(null, __('Set order to Default to use the order set by the theme.') . '<br>' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), App::backend()->url()->get('admin.blog.pref') . '#params.nb_post_per_page'))),
-                ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(__('Set order to Default to use the order set by the theme.') . '<br>' . sprintf(__('Leave number blank to use the default blog <a href="%s">parameter</a>.'), App::backend()->url()->get('admin.blog.pref') . '#params.nb_post_per_page')),
                 $block,
                 // Submit
                 (new Para())->items([
