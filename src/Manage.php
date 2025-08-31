@@ -137,7 +137,7 @@ class Manage extends Process
                         (new Td())
                             ->items([
                                 (new Text(null, str_repeat('&nbsp;&nbsp;', (int) $rs->level - 1) . Html::escapeHTML($rs->cat_title))),
-                                (new Hidden(['co_catid[]'], $rs->cat_id)),
+                                (new Hidden(['co_catid[]'], (string) $rs->cat_id)),
                             ]),
                         (new Td())
                             ->items([
