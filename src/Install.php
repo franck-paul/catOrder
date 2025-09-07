@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief catOrder, a plugin for Dotclear 2
  *
@@ -15,12 +16,14 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\catOrder;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
 use Dotclear\Core\Upgrade\Upgrade;
+use Dotclear\Helper\Process\TraitProcess;
 use Exception;
 
-class Install extends Process
+class Install
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::INSTALL));
