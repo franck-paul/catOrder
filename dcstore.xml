@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="catOrder">
     <name>Ordering category entries</name>
-    <version>6.0</version>
+    <version>6.0.1</version>
     <author>Franck Paul</author>
     <desc>Set category entries order</desc>
-    <date>2025-09-07T18:37:52+0200</date>
-    <file>https://github.com/franck-paul/catOrder/releases/download/6.0/plugin-catOrder-6.0.zip</file>
+    <date>2025-09-12T10:14:23+0200</date>
+    <file>https://github.com/franck-paul/catOrder/releases/download/6.0.1/plugin-catOrder-6.0.1.zip</file>
     <da:dcmin>2.36</da:dcmin>
     <da:details>https://open-time.net/?q=catOrder</da:details>
     <da:support>https://github.com/franck-paul/catOrder</da:support>
