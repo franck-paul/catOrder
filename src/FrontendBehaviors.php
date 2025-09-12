@@ -46,7 +46,7 @@ class FrontendBehaviors
                                 break;
                             case 'title-asc':
                             case 'title-desc':
-                                $params->offsetSet('order', App::db()->con()->lexFields('post_title'));
+                                $params->offsetSet('order', App::con()->lexFields('post_title'));
 
                                 break;
                         }
