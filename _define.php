@@ -15,9 +15,9 @@ $this->registerModule(
     'Ordering category entries',
     'Set category entries order',
     'Franck Paul',
-    '6.0',
+    '6.0.1',
     [
-        'date'        => '2025-09-07T18:37:52+0200',
+        'date'        => '2025-09-12T10:14:23+0200',
         'requires'    => [['core', '2.36']],
         'permissions' => '',
         'type'        => 'plugin',
