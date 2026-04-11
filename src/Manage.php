@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -59,26 +59,49 @@ class Manage
 
         if ($_POST !== []) {
             try {
-                $co_active = (bool) $_POST['co_active'];
-                $co_orders = [];
-                if (!empty($_POST['co_order'])) {
-                    for ($i = 0; $i < (is_countable($_POST['co_order']) ? count($_POST['co_order']) : 0); ++$i) {
-                        $co_orders[$_POST['co_catid'][$i]] = $_POST['co_order'][$i];
-                    }
-                }
+                $active = (bool) $_POST['co_active'];
 
-                $co_numbers = [];
-                if (!empty($_POST['co_number'])) {
-                    for ($i = 0; $i < (is_countable($_POST['co_number']) ? count($_POST['co_number']) : 0); ++$i) {
-                        $co_numbers[$_POST['co_catid'][$i]] = $_POST['co_number'][$i];
+                /**
+                 * @var array<int, string>
+                 */
+                $orders = [];
+
+                /**
+                 * @var array<int, string>
+                 */
+                $numbers = [];
+
+                /**
+                 * @var array<string>
+                 */
+                $catids = is_array($catids = $_POST['co_catid']) ? $catids : [];
+
+                if ($catids !== []) {
+                    if (is_array($_POST['co_order']) && $_POST['co_order'] !== []) {
+                        $counter = count($_POST['co_order']);
+                        for ($i = 0; $i < $counter; ++$i) {
+                            $cat_id = is_numeric($cat_id = $catids[$i]) ? (int) $cat_id : 0;
+                            if ($cat_id > 0) {
+                                $orders[$cat_id] = $_POST['co_order'][$i];
+                            }
+                        }
+                    }
+                    if (is_array($_POST['co_number']) && $_POST['co_number'] !== []) {
+                        $counter = count($_POST['co_number']);
+                        for ($i = 0; $i < $counter; ++$i) {
+                            $cat_id = is_numeric($cat_id = $catids[$i]) ? (int) $cat_id : 0;
+                            if ($cat_id > 0) {
+                                $numbers[$cat_id] = $_POST['co_number'][$i];
+                            }
+                        }
                     }
                 }
 
                 # Everything's fine, save options
                 $settings = My::settings();
-                $settings->put('active', $co_active, App::blogWorkspace()::NS_BOOL);
-                $settings->put('orders', $co_orders, App::blogWorkspace()::NS_ARRAY);
-                $settings->put('numbers', $co_numbers, App::blogWorkspace()::NS_ARRAY);
+                $settings->put('active', $active, App::blogWorkspace()::NS_BOOL);
+                $settings->put('orders', $orders, App::blogWorkspace()::NS_ARRAY);
+                $settings->put('numbers', $numbers, App::blogWorkspace()::NS_ARRAY);
 
                 App::blog()->triggerBlog();
 
@@ -101,19 +124,21 @@ class Manage
             return;
         }
 
-        $settings   = My::settings();
-        $co_active  = (bool) $settings->active;
-        $co_orders  = $settings->orders;
-        $co_numbers = $settings->numbers;
-        if (!is_array($co_orders)) {
-            $co_orders = [];
-        }
+        $settings = My::settings();
 
-        if (!is_array($co_numbers)) {
-            $co_numbers = [];
-        }
+        $active = (bool) $settings->active;
 
-        $co_combo = [
+        /**
+         * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
+         */
+        $orders = is_array($orders = $settings->orders) ? $orders : [];
+
+        /**
+         * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
+         */
+        $numbers = is_array($numbers = $settings->numbers) ? $numbers : [];
+
+        $combo = [
             __('Default')             => '',
             __('By date descending')  => 'desc',
             __('By date ascending')   => 'asc',
@@ -129,27 +154,33 @@ class Manage
         } else {
             $raws = [];
             while ($rs->fetch()) {
-                $order  = (array_key_exists($rs->cat_id, $co_orders) ? $co_orders[$rs->cat_id] : '');
-                $number = (array_key_exists($rs->cat_id, $co_numbers) ? $co_numbers[$rs->cat_id] : '');
+                $cat_id = is_numeric($cat_id = $rs->cat_id) ? (int) $cat_id : 0;
+                if ($cat_id > 0) {
+                    $cat_level = is_numeric($cat_level = $rs->level) ? (int) $cat_level : 1;
+                    $cat_title = is_string($cat_title = $rs->cat_title) ? $cat_title : '';
 
-                $raws[] = (new Tr('cat-' . $rs->cat_id))
-                    ->items([
-                        (new Td())
-                            ->items([
-                                (new Text(null, str_repeat('&nbsp;&nbsp;', (int) $rs->level - 1) . Html::escapeHTML($rs->cat_title))),
-                                (new Hidden(['co_catid[]'], (string) $rs->cat_id)),
-                            ]),
-                        (new Td())
-                            ->items([
-                                (new Select(['co_order[]', 'cat-' . $rs->cat_id]))
-                                    ->items($co_combo)
-                                    ->default($order),
-                            ]),
-                        (new Td())
-                            ->items([
-                                (new Number(['co_number[]'], 0, 99_999, (int) $number)),
-                            ]),
-                    ]);
+                    $order  = array_key_exists($cat_id, $orders) ? $orders[$cat_id] : '';
+                    $number = array_key_exists($cat_id, $numbers) && is_numeric($number = $numbers[$cat_id]) ? (int) $number : 0;
+
+                    $raws[] = (new Tr('cat-' . $cat_id))
+                        ->items([
+                            (new Td())
+                                ->items([
+                                    (new Text(null, str_repeat('&nbsp;&nbsp;', $cat_level - 1) . Html::escapeHTML($cat_title))),
+                                    (new Hidden(['co_catid[]'], (string) $cat_id)),
+                                ]),
+                            (new Td())
+                                ->items([
+                                    (new Select(['co_order[]', 'cat-' . $cat_id]))
+                                        ->items($combo)
+                                        ->default($order),
+                                ]),
+                            (new Td())
+                                ->items([
+                                    (new Number(['co_number[]'], 0, 99_999, $number)),
+                                ]),
+                        ]);
+                }
             }
 
             $block = (new Table())
@@ -188,7 +219,7 @@ class Manage
             ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
-                (new Checkbox('co_active', $co_active))
+                (new Checkbox('co_active', $active))
                     ->value(1)
                     ->label((new Label(__('Activate user-defined orders for this blog\'s categories'), Label::INSIDE_TEXT_AFTER))),
                 (new Text('h3', __('Order and number of entries per page'))),
