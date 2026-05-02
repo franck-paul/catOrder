@@ -49,6 +49,7 @@ class FrontendBehaviors
                         if ($params->offsetExists('post_type') && $params['post_type'] !== 'post') {
                             return '';
                         }
+
                         // Do not sort if order not present in parameters
                         if ($params->offsetExists('order')) {
                             $field     = 'post_dt';
@@ -80,6 +81,7 @@ class FrontendBehaviors
 
                                     break;
                             }
+
                             $params->offsetSet('order', $field . ' ' . $direction);
                         }
                     }

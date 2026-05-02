@@ -86,6 +86,7 @@ class Manage
                             }
                         }
                     }
+
                     if (is_array($_POST['co_number']) && $_POST['co_number'] !== []) {
                         $counter = count($_POST['co_number']);
                         for ($i = 0; $i < $counter; ++$i) {
