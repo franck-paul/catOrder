@@ -155,10 +155,10 @@ class Manage
         } else {
             $raws = [];
             while ($rs->fetch()) {
-                $cat_id = is_numeric($cat_id = $rs->cat_id) ? (int) $cat_id : 0;
+                $cat_id = $rs->intField('cat_id');
                 if ($cat_id > 0) {
-                    $cat_level = is_numeric($cat_level = $rs->level) ? (int) $cat_level : 1;
-                    $cat_title = is_string($cat_title = $rs->cat_title) ? $cat_title : '';
+                    $cat_level = $rs->intField('level');
+                    $cat_title = $rs->strField('cat_title');
 
                     $order  = array_key_exists($cat_id, $orders) ? $orders[$cat_id] : '';
                     $number = array_key_exists($cat_id, $numbers) && is_numeric($number = $numbers[$cat_id]) ? (int) $number : 0;
