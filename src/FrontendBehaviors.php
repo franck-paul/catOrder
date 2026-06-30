@@ -29,7 +29,7 @@ class FrontendBehaviors
         if (App::url()->getType() === 'category') {
             $settings = My::settings();
             if ($settings->active) {
-                $cat_id = App::frontend()->context()->categories instanceof MetaRecord && is_numeric($cat_id = App::frontend()->context()->categories->cat_id) ? (int) $cat_id : 0;
+                $cat_id = App::frontend()->context()->categories instanceof MetaRecord ? App::frontend()->context()->categories->intField('cat_id') : 0;
                 if ($cat_id > 0) {
                     /**
                      * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
