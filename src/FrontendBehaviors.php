@@ -28,18 +28,18 @@ class FrontendBehaviors
     {
         if (App::url()->getType() === 'category') {
             $settings = My::settings();
-            if ($settings->active) {
+            if ($settings->getBool('active')) {
                 $cat_id = App::frontend()->context()->categories instanceof MetaRecord ? App::frontend()->context()->categories->intField('cat_id') : 0;
                 if ($cat_id > 0) {
                     /**
                      * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
                      */
-                    $orders = is_array($orders = $settings->orders) ? $orders : [];
+                    $orders = is_array($orders = $settings->get('orders')) ? $orders : [];
 
                     /**
                      * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
                      */
-                    $numbers = is_array($numbers = $settings->numbers) ? $numbers : [];
+                    $numbers = is_array($numbers = $settings->get('numbers')) ? $numbers : [];
 
                     $order  = array_key_exists($cat_id, $orders) ? $orders[$cat_id] : '';
                     $number = array_key_exists($cat_id, $numbers) && is_numeric($number = $numbers[$cat_id]) ? (int) $number : 0;

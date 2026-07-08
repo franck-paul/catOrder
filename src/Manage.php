@@ -127,17 +127,17 @@ class Manage
 
         $settings = My::settings();
 
-        $active = (bool) $settings->active;
+        $active = $settings->getBool('active', false);
 
         /**
          * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
          */
-        $orders = is_array($orders = $settings->orders) ? $orders : [];
+        $orders = is_array($orders = $settings->get('orders')) ? $orders : [];
 
         /**
          * @var array<int, string> key may be numeric string with old registered values, but array_key_exists() is ok with that
          */
-        $numbers = is_array($numbers = $settings->numbers) ? $numbers : [];
+        $numbers = is_array($numbers = $settings->get('numbers')) ? $numbers : [];
 
         $combo = [
             __('Default')             => '',
