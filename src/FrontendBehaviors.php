@@ -26,7 +26,7 @@ class FrontendBehaviors
      */
     public static function coreBlogBeforeGetPosts(ArrayObject $params): string
     {
-        if (App::url()->getType() === 'category') {
+        if (App::url()->isType('category')) {
             $settings = My::settings();
             if ($settings->getBool('active')) {
                 $cat_id = App::frontend()->context()->categories instanceof MetaRecord ? App::frontend()->context()->categories->intField('cat_id') : 0;
