@@ -19,9 +19,9 @@ use Dotclear\Core\Backend\Favorites;
 
 class BackendBehaviors
 {
-    public static function adminDashboardFavorites(Favorites $favs): string
+    public static function adminDashboardFavorites(Favorites $favorites): string
     {
-        $favs->register('catOrder', [
+        $favorites->register('catOrder', [
             'title'          => __('Categories orders'),
             'url'            => My::manageUrl(),
             'menu-icon'      => My::icon(),

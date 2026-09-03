@@ -22,9 +22,9 @@ use Dotclear\Database\MetaRecord;
 class FrontendBehaviors
 {
     /**
-     * @param      ArrayObject<string, mixed>  $params  The parameters
+     * @param      ArrayObject<string, mixed>  $arrayObject  The parameters
      */
-    public static function coreBlogBeforeGetPosts(ArrayObject $params): string
+    public static function coreBlogBeforeGetPosts(ArrayObject $arrayObject): string
     {
         if (App::url()->isType('category')) {
             $settings = My::settings();
@@ -46,12 +46,12 @@ class FrontendBehaviors
 
                     if ($order !== '') {
                         // Do not sort other entry types
-                        if ($params->offsetExists('post_type') && $params['post_type'] !== 'post') {
+                        if ($arrayObject->offsetExists('post_type') && $arrayObject['post_type'] !== 'post') {
                             return '';
                         }
 
                         // Do not sort if order not present in parameters
-                        if ($params->offsetExists('order')) {
+                        if ($arrayObject->offsetExists('order')) {
                             $field     = 'post_dt';
                             $direction = 'desc';
 
@@ -82,7 +82,7 @@ class FrontendBehaviors
                                     break;
                             }
 
-                            $params->offsetSet('order', $field . ' ' . $direction);
+                            $arrayObject->offsetSet('order', $field . ' ' . $direction);
                         }
                     }
 
