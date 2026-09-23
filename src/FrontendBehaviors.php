@@ -59,7 +59,6 @@ class FrontendBehaviors
                             switch ($order) {
                                 case 'asc':
                                 case 'desc':
-                                    $field = 'post_dt';
 
                                     break;
                                 case 'title-asc':
@@ -77,7 +76,6 @@ class FrontendBehaviors
                                     break;
                                 case 'desc':
                                 case 'title-desc':
-                                    $direction = 'desc';
 
                                     break;
                             }
