@@ -38,13 +38,13 @@ class Install
         try {
             // Update
             $old_version = App::version()->getVersion(My::id());
-            if (version_compare((string) $old_version, '0.4') < 0) {
+            if (version_compare($old_version, '0.4') < 0) {
                 // Convert oldschool settings
                 Upgrade::settings2array('catorder', 'orders');
             }
 
             // Rename settings namespace
-            if (version_compare((string) $old_version, '2.0', '<') && App::blog()->settings()->exists('catorder')) {
+            if (version_compare($old_version, '2.0', '<') && App::blog()->settings()->exists('catorder')) {
                 App::blog()->settings()->delWorkspace(My::id());
                 App::blog()->settings()->renWorkspace('catorder', My::id());
             }
