@@ -51,15 +51,15 @@ class Install
 
             // Chech if settings exist, create them if not
             $settings = My::settings();
-            if (!$settings->getGlobal('active')) {
+            if ($settings->getGlobal('active') === null) {
                 $settings->put('active', false, App::blogWorkspace()::NS_BOOL, 'Active', false, true);
             }
 
-            if (!$settings->getGlobal('orders')) {
+            if ($settings->getGlobal('orders') === null) {
                 $settings->put('orders', [], App::blogWorkspace()::NS_ARRAY, 'Categories order', false, true);
             }
 
-            if (!$settings->getGlobal('numbers')) {
+            if ($settings->getGlobal('numbers') === null) {
                 $settings->put('numbers', [], App::blogWorkspace()::NS_ARRAY, 'Categories nb of entries per page', false, true);
             }
         } catch (Exception $exception) {

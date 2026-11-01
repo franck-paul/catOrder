@@ -28,7 +28,7 @@ class FrontendBehaviors
     {
         if (App::url()->isType('category')) {
             $settings = My::settings();
-            if ($settings->getBool('active')) {
+            if ($settings->getBool('active', false)) {
                 $cat_id = App::frontend()->context()->categories instanceof MetaRecord ? App::frontend()->context()->categories->intField('cat_id') : 0;
                 if ($cat_id > 0) {
                     /**
