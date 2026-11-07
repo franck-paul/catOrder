@@ -18,9 +18,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'Ordering category entries',
         'Set category entries order',
         'Franck Paul',
-        '7.0',
+        '7.1',
         [
-            'date'        => '2026-08-03T09:46:41+0200',
+            'date'        => '2026-11-07T16:41:54+0100',
             'requires'    => [['core', '2.39']],
             'permissions' => '',
             'type'        => 'plugin',
